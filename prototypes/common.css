@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    background-color: #eeeeee;
+}
+
+header {
+    position: relative;
+    z-index: 10;
+    background-color: white;
+    box-shadow: 0 0 10px grey;
+}
+
+#top {
+    border-bottom: solid 1px grey;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    font-size: large;
+}
+
+#logo {
+    padding-left: 2px;
+    padding-bottom: 3px;
+    margin-right: 20px;
+    flex-grow: 0;
+}
+
+#search {
+    flex-grow: 1;
+}
+
+#search_input {
+    height: 30px;
+    width: 300px;
+}
+#search_button {
+    height: 30px;
+}
+
+#navigation {
+    padding: 3px 5px 4px 5px;
+    background-color: #2FA22F;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu_button {
+    background-color: white;
+    height: 25px;
+    width: 80px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 30px;
+}
+
+#action {
+
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: #f3f3f3;
+}
+
+#column_left {
+    width: 65%;
+    max-width: 600px;
+}
+
+#column_right {
+    width: 33%;
+    max-width: 400px;
+}
+
+.card {
+    display: block;
+    background-color: white;
+    margin: 15px 10px 15px 10px;
+    box-shadow: 3px 3px 1px lightgrey;
+    padding: 10px;
+}
+
+.card-header {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #2FA22F;
+}
+
+.vote_buttons {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.inlinebutton {
+    border-radius: 3px;
+    border: none;
+}
+
+.button_vote_down {
+    background-color: indianred;
+    color: white;
+}
+
+.button_vote_up {
+    background-color: #2FA22F;
+    color: white;
+}
