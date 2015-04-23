@@ -1,0 +1,39 @@
+i-bubble-field {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+}
+
+i-bubble {
+    border-radius: 50%;
+    background-color: #2FA22F;
+    display: table;
+    margin: 3px;
+}
+
+i-bubble p {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.large {
+    height: 200px;
+    width: 200px;
+    font-size: 24px;
+    word-wrap: normal;
+}
+
+.middle {
+    height: 150px;
+    width: 150px;
+    font-size: 14px;
+    word-wrap: normal;
+}
+
+.small {
+    height: 100px;
+    width: 100px;
+    font-size: 14px;
+    word-wrap: break-word;
+}

@@ -1,0 +1,37 @@
+.vote_buttons {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.button_vote_down {
+    background-color: indianred;
+    color: white;
+}
+
+.button_vote_up {
+    background-color: #2FA22F;
+    color: white;
+}
+
+.lastcomment {
+    border-bottom: 0px;
+}
+
+.morebutton {
+    background-color: #e3e3e3;
+    border: 0;
+    width: 100%;
+    height: 25px;
+}
+
+.newcomment {
+    margin-top: 3px;
+    width: 100%;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: grey;
+}

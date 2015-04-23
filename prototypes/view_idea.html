@@ -3,37 +3,12 @@
 <head lang="en">
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="common.css" />
+    <link rel="stylesheet" type="text/css" href="card.css" />
+    <link rel="stylesheet" type="text/css" href="header.css" />
+    <link rel="stylesheet" type="text/css" href="view_idea.css" />
     <link rel="stylesheet" type="text/css" href="../icons/fontawesome/css/font-awesome.css"/>
     <title></title>
-    <script type="text/javascript">
-        document.registerElement('i-card-h',  {
-            prototype: Object.create(HTMLHeadingElement.prototype),
-            extends: 'h2'
-        });
-        document.registerElement('i-card', {
-            prototype: Object.create(HTMLDivElement.prototype)
-        });
-        document.registerElement('i-comment', {
-            prototype: Object.create(HTMLDivElement.prototype)
-        });
-        document.registerElement('i-comment-content', {
-            prototype: Object.create(HTMLDivElement.prototype)
-        });
-        document.registerElement('i-comment-meta', {
-            prototype: Object.create(HTMLDivElement.prototype)
-        });
-        document.registerElement('i-aspect-reference', {
-            prototype: Object.create(HTMLAnchorElement.prototype),
-            extends: 'a'
-        });
-        document.registerElement('i-idea-reference', {
-            prototype: Object.create(HTMLAnchorElement.prototype),
-            extends: 'a'
-        });
-        document.registerElement('i-tag', {
-            prototype: Object.create(HTMLAnchorElement.prototype),
-            extends: 'a'
-        });
+    <script type="text/javascript" src="card.js">
     </script>
 </head>
 <body>
@@ -61,7 +36,7 @@
     </div>
 </header>
 
-<div id="content">
+<div id="content" class="i-columns">
     <div id="column_left">
         <i-card>
             <h2 is="i-card-h">001: Idea is great</h2>
