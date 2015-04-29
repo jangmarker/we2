@@ -1,40 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="common.css" />
-    <link rel="stylesheet" type="text/css" href="card.css" />
-    <link rel="stylesheet" type="text/css" href="header.css" />
-    <link rel="stylesheet" type="text/css" href="view_idea.css" />
-    <link rel="stylesheet" type="text/css" href="../icons/fontawesome/css/font-awesome.css"/>
-    <title></title>
-    <script type="text/javascript" src="card.js">
-    </script>
-</head>
-<body>
-<header>
-    <div id="top">
-        <div id="logo">
-            <span id="logo_icon" class="fa fa-lightbulb-o fa-2x"></span>
-            <span id="logo_text">Ideas</span>
-        </div>
-        <div id="search">
-            <input id="search_input" type="search" name="search" placeholder="Search..." />
-            <span id="search_button" class="fa fa-search"></span>
-        </div>
-        <div id="account">
-            Account
-        </div>
-    </div>
-    <div id="navigation">
-        <div id="menu_button">
-            Menu
-        </div>
-        <div id="action">
-
-        </div>
-    </div>
-</header>
+<?php include(__DIR__ . '/header.inc.php') ?>
 
 <div id="content" class="i-columns">
     <div id="column_left">
@@ -127,5 +91,4 @@
     </div>
 </div>
 
-</body>
-</html>
+<?php include(__DIR__ . '/footer.inc.php') ?>

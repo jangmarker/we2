@@ -14,34 +14,10 @@ class App {
 
     function registerService($name, Service $service) {
         $this->services[$name] = $service;
-        $this->registerHandle("GET", $name, '__default', $this->defaultHandleGet);
-        $this->registerHandle("POST", $name, '__default', $this->defaultHandlePost);
-        $this->registerHandle("UPDATE", $name, '__default', $this->defaultHandleUpdate);
-        $this->registerHandle("DELETE", $name, '__default', $this->defaultHandleDelete);
-    }
-
-    function defaultHandleGet(\framework\App $app, \framework\Request $request, $resource) {
-        $response = new \framework\Response();
-
-        $service = $app->getService($resource);
-
-        $response->setTemplateName($resource);
-        $response->setData($service->get($request->getId()));
-        $response->setReturnCode(200);
-
-        return $response;
-    }
-
-    function defaultHandleDelete(\framework\App $app, \framework\Request $request, $resource) {
-        $response = new \framework\Response();
-
-        $service = $app->getService($resource);
-
-        $response->setTemplateName($resource);
-        $response->setData($service->remove($request->getId()));
-        $response->setReturnCode(200);
-
-        return $response;
+        $this->registerHandle("GET", $name, '__default', 'defaultHandleGet');
+        $this->registerHandle("POST", $name, '__default', 'defaultHandlePost');
+        $this->registerHandle("UPDATE", $name, '__default', 'defaultHandleUpdate');
+        $this->registerHandle("DELETE", $name, '__default', 'defaultHandleDelete');
     }
 
     function getService($name) {
@@ -70,7 +46,12 @@ class App {
 
         $function = $this->handles[$request->getResourceName()][$request->getMethod()][$request->getSubresourceName()];
 
-        $response = $function($this, $request, $request->getResourceName());
+        $response = null;
+        if (is_string($function)) {
+            $response = $this->$function($this, $request, $request->getResourceName());
+        } else {
+            $response = $function($this, $request, $request->getResourceName());
+        }
 
         $this->render($response);
     }
@@ -85,6 +66,30 @@ class App {
     public function setTemplateDir($templateDir)
     {
         $this->templateDir = $templateDir;
+    }
+
+    function defaultHandleGet(\framework\App $app, \framework\Request $request, $resource) {
+        $response = new \framework\Response();
+
+        $service = $app->getService($resource);
+
+        $response->setTemplateName($resource);
+        $response->setData($service->get($request->getId()));
+        $response->setReturnCode(200);
+
+        return $response;
+    }
+
+    function defaultHandleDelete(\framework\App $app, \framework\Request $request, $resource) {
+        $response = new \framework\Response();
+
+        $service = $app->getService($resource);
+
+        $response->setTemplateName($resource);
+        $response->setData($service->remove($request->getId()));
+        $response->setReturnCode(200);
+
+        return $response;
     }
 
 }
