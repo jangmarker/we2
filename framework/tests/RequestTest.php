@@ -56,4 +56,23 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($originArray['content'], $request->getContent());
         $this->assertEquals($originArray['method'], $request->getMethod());
     }
+
+    function test_constructsCorrectlyFromArrayWithoutSubresourceName()
+    {
+        //Prepare
+        $originArray = $this->originArray;
+        $originArray['subresourceName'] = false;
+        $originArray = array_filter($originArray);
+
+        // Do
+        $request = new \framework\Request($originArray);
+
+        // Test
+        $this->assertEquals($originArray['wrapper'], $request->getWrapper());
+        $this->assertEquals($originArray['resourceName'], $request->getResourceName());
+        $this->assertEquals($originArray['id'], $request->getId());
+        $this->assertEquals('__default', $request->getSubresourceName());
+        $this->assertEquals($originArray['content'], $request->getContent());
+        $this->assertEquals($originArray['method'], $request->getMethod());
+    }
 }
