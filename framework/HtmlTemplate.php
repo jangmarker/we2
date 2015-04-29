@@ -16,7 +16,7 @@ class HtmlTemplate {
         $this->innerTemplate = $innerTemplate;
     }
 
-    public function process($response) {
+    public function process($data) {
         $innerTemplate = $this->innerTemplate;
         ob_start();
         require($this->templateFilePath());
@@ -30,7 +30,7 @@ class HtmlTemplate {
 
     private function failIfTemplateDoesNotExist() {
         if (!file_exists($this->templateFilePath())) {
-            throw new \InvalidArgumentException("could not find " + $this->templateFilePath());
+            throw new \InvalidArgumentException("could not find " . $this->templateFilePath());
         }
     }
 

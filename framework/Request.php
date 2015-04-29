@@ -14,14 +14,18 @@ class Request {
         $this->useIfExists($array, 'wrapper');
         $this->resourceName = $array['resourceName'];
         $this->useIfExists($array, 'id');
-        $this->useIfExists($array, 'subresourceName');
+        $this->useIfExists($array, 'subresourceName', '__default');
         $this->content = $array['content'];
         $this->method = $array['method'];
     }
 
-    private function useIfExists($array, $key) {
+    private function useIfExists($array, $key, $default = false) {
         if (array_key_exists($key, $array)) {
             $this->{$key} = $array[$key];
+            return;
+        }
+        if ($default !== false) {
+            $this->{$key} = $default;
         }
     }
 

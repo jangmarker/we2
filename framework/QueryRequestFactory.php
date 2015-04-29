@@ -18,7 +18,11 @@ class QueryRequestFactory {
 
         $rawContent = file_get_contents('php://input');
 
-        $result['content'] = ContentParser::parse($server['CONTENT_TYPE'], $rawContent);
+        $contentType = 'text/json';
+        if (isset($server['CONTENT_TYPE'])) {
+            $contentType = $server['CONTENT_TYPE'];
+        }
+        $result['content'] = ContentParser::parse($contentType, $rawContent);
 
         return new Request($result);
     }

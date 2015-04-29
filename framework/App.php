@@ -1,40 +1,90 @@
 <?php
-
 namespace framework;
 
+
 class App {
+    private $middlewares = array();
+    private $handles = array();
     private $services = array();
-    private $handlers = array();
+    private $templateDir;
 
-    private function registerHandler($path, $method, $handler) {
-        $this->$handler[$path][$method] = $handler;
+    function registerMiddleware(Middleware $middleware) {
+        $this->middlewares[] = $middleware;
     }
 
-    public function registerService($name, $service) {
+    function registerService($name, Service $service) {
         $this->services[$name] = $service;
+        $this->registerHandle("GET", $name, '__default', $this->defaultHandleGet);
+        $this->registerHandle("POST", $name, '__default', $this->defaultHandlePost);
+        $this->registerHandle("UPDATE", $name, '__default', $this->defaultHandleUpdate);
+        $this->registerHandle("DELETE", $name, '__default', $this->defaultHandleDelete);
     }
 
-    public function getService($name) {
+    function defaultHandleGet(\framework\App $app, \framework\Request $request, $resource) {
+        $response = new \framework\Response();
+
+        $service = $app->getService($resource);
+
+        $response->setTemplateName($resource);
+        $response->setData($service->get($request->getId()));
+        $response->setReturnCode(200);
+
+        return $response;
+    }
+
+    function defaultHandleDelete(\framework\App $app, \framework\Request $request, $resource) {
+        $response = new \framework\Response();
+
+        $service = $app->getService($resource);
+
+        $response->setTemplateName($resource);
+        $response->setData($service->remove($request->getId()));
+        $response->setReturnCode(200);
+
+        return $response;
+    }
+
+    function getService($name) {
         return $this->services[$name];
     }
 
-    public function start() {
-        $request = new Request($_SERVER);
+    function registerHandle($method, $resourceName, $subresourceName, $function) {
+        if (!array_key_exists($resourceName, $this->handles))
+            $this->handles[$resourceName] = array();
+        if (!array_key_exists($method, $this->handles[$resourceName]))
+            $this->handles[$resourceName][$method] = array();
 
-        if (array_key_exists())
-
-        $handler = $this->defaultHandlerForMethod($request->method);
-        $handler();
+        $this->handles[$resourceName][$method][$subresourceName] = $function;
     }
 
-    private function defaultHandlerForMethod($method) {
-        switch ($method) {
-            case 'GET': return $this->defaultGetHandler;
+    function exec(Request $request) {
+        foreach ($this->middlewares as $middleware) {
+            switch ($request->getMethod()) {
+                case 'POST': $middleware->onPost($request); break;
+                case 'GET': $middleware->onGet($request); break;
+                case 'UPDATE': $middleware->onUpdate($request); break;
+                case 'DELETE': $middleware->onDelete($request); break;
+                default: throw new \ErrorException('Unkown method: ' . $request->getMethod());
+            }
         }
+
+        $function = $this->handles[$request->getResourceName()][$request->getMethod()][$request->getSubresourceName()];
+
+        $response = $function($this, $request, $request->getResourceName());
+
+        $this->render($response);
     }
 
-    private function defaultGetHandler($app, $templateCtx, $service, $id) {
-        return $service->get($id);
+    function render(Response $response) {
+        // TODO send headers
+
+        $htmlTemplate = new HtmlTemplate($this->templateDir, $response->getTemplateName());
+        echo $htmlTemplate->process($response->getData());
+    }
+
+    public function setTemplateDir($templateDir)
+    {
+        $this->templateDir = $templateDir;
     }
 
 }

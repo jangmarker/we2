@@ -5,5 +5,4 @@
             $className = strtok('\\');
             require_once(dirname(__FILE__) . "/$className.php");
         }
-    })
-?>`
+    });
