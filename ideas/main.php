@@ -6,6 +6,7 @@ $app = new framework\App();
 $app->setTemplateDir(__DIR__ . "/tmpl/");
 $app->registerService("idea", new \framework\Service());
 $app->registerService("main", new \framework\Service());
+$app->registerService("about", new \framework\Service());
 
 $requestFactory = new \framework\QueryRequestFactory();
 $request = $requestFactory->createRequest($_SERVER);

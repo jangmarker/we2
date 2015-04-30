@@ -12,7 +12,7 @@
     </i-card>
     <i-card id="main_about">
         <a href="main.php?resourceName=about">
-            <h2 is="i-card-h">About us</h2>
+            <h2 is="i-card-h">About us & Contact</h2>
             We are a 1-person-team which develops software for a web engineering class.
         </a>
     </i-card>
