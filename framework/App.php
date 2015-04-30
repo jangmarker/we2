@@ -44,27 +44,48 @@ class App {
             }
         }
 
-        $function = $this->handles[$request->getResourceName()][$request->getMethod()][$request->getSubresourceName()];
-
         $response = null;
-        if (is_string($function)) {
-            $response = $this->$function($this, $request, $request->getResourceName());
+        if (!array_key_exists($request->getResourceName(), $this->handles)) {
+            $response = $this->errorHandler(404, $request);
         } else {
-            $response = $function($this, $request, $request->getResourceName());
+            $function = $this->handles[$request->getResourceName()][$request->getMethod()][$request->getSubresourceName()];
+
+            if (is_string($function)) {
+                $response = $this->$function($this, $request, $request->getResourceName());
+            } else {
+                $response = $function($this, $request, $request->getResourceName());
+            }
         }
 
         $this->render($response);
     }
 
+    function errorHandler($errorNo, $request) {
+        $response = new \framework\Response();
+        switch ($errorNo) {
+            case 404:
+                    $response->setTemplateName("404");
+                    $response->setData("Not found: " . $request->getResourceName());
+                    $response->addHeader("Status", "404");
+                break;
+            default:
+                break;
+        }
+
+        return $response;
+    }
+
     function render(Response $response) {
-        // TODO send headers
+        $headers = $response->getHeaders();
+        for ($i = 0; $i < count($headers); ++$i) {
+            header($headers[$i]);
+        }
 
         $htmlTemplate = new HtmlTemplate($this->templateDir, $response->getTemplateName());
         echo $htmlTemplate->process($response->getData());
     }
 
-    public function setTemplateDir($templateDir)
-    {
+    function setTemplateDir($templateDir) {
         $this->templateDir = $templateDir;
     }
 
@@ -75,7 +96,6 @@ class App {
 
         $response->setTemplateName($resource);
         $response->setData($service->get($request->getId()));
-        $response->setReturnCode(200);
 
         return $response;
     }
@@ -87,7 +107,6 @@ class App {
 
         $response->setTemplateName($resource);
         $response->setData($service->remove($request->getId()));
-        $response->setReturnCode(200);
 
         return $response;
     }

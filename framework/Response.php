@@ -5,32 +5,37 @@ namespace framework;
 class Response {
     private $templateName;
     private $data;
-    private $returnCode;
+    private $headers = array();
 
-    public function getReturnCode()
-    {
-        return $this->returnCode;
-    }
-
-    public function setReturnCode($returnCode)
-    {
-        $this->returnCode = $returnCode;
-    }
-
-    function setTemplateName($templateName) {
+    public function setTemplateName($templateName) {
         $this->templateName = $templateName;
     }
 
-    function getTemplateName() {
+    public function getTemplateName() {
         return $this->templateName;
     }
 
-    function setData($data) {
+    public function setData($data) {
         $this->data = $data;
     }
 
-    function getData() {
+    public function getData() {
         return $this->data;
+    }
+
+    public function addHeader($headerName, $value) {
+        if ($headerName == 'Status') {
+            $this->headers[] = "HTTP/1.0 $value";
+        } else {
+            $this->headers[] = "$headerName: $value";
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders() {
+        return $this->headers;
     }
 
 }
