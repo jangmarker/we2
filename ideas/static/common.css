@@ -24,6 +24,10 @@ a[is="i-tag"] {
     color: mediumblue;
 }
 
+a {
+    color: black;
+}
+
 #content {
     padding-left: 10%;
     padding-right: 10%;
