@@ -3,9 +3,8 @@
 <div id="content" class="i-columns">
     <div id="column_left">
         <i-card>
-            <h2 is="i-card-h">001: Idea is great</h2>
-            This idea is about great things in the world, please like it. I hope it gets very well known!
-            Lahlahlahlahlah lah lah la
+            <h2 is="i-card-h"><?=$data['idea_id']?>: <?=$data['shorttitle']?> </h2>
+            <?=$data['description']?>
             <div class="vote_buttons">
                 Vote:
                 <button name="vote_down" class="inlinebutton button_vote_down"><span class="fa fa-thumbs-down"/></button>
@@ -60,8 +59,8 @@
     <div id="column_right">
         <i-card>
             <h2 is="i-card-h">Written by</h2>
-            Jan Marker<br>
-            Technik/Angewandte Informatik
+            <?=$data['user_name']?><br>
+            <?=$data['faculty_name']?>
         </i-card>
         <i-card>
             <h2 is="i-card-h">Tags</h2>
