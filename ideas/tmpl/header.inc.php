@@ -22,8 +22,11 @@
             </a>
         </div>
         <div id="search">
-            <input id="search_input" type="search" name="search" placeholder="Search..." />
-            <span id="search_button" class="fa fa-search"></span>
+            <form method="get" action="index.php">
+                <input name="resourceName" type="hidden" value="search">
+                <input id="search_input" type="id" name="id" placeholder="Search..." />
+                <button id="search_button"><span class="fa fa-search"></span></button>
+            </form>
         </div>
         <div id="account">
             <?= $data['user']['name'] ?>

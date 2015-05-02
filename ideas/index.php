@@ -4,6 +4,7 @@ require_once(dirname(__FILE__) . "/../framework/Framework.php");
 require_once(__DIR__ . "/LoginService.php");
 require_once(__DIR__ . "/UserService.php");
 require_once(__DIR__ . "/IdeaService.php");
+require_once(__DIR__ . "/SearchService.php");
 require_once(__DIR__ . "/LoginMiddleware.php");
 
 $app = new framework\App();
@@ -14,6 +15,7 @@ $app->registerService("about", new \framework\Service());
 $app->registerService("login", new LoginService());
 $app->registerService("user", new UserService());
 $app->registerService("idea", new IdeaService());
+$app->registerService("search", new SearchService());
 
 $app->registerMiddleware(new LoginMiddleware());
 

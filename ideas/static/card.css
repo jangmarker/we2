@@ -49,3 +49,16 @@ div.i-columns {
     justify-content: center;
     align-items: flex-start;
 }
+
+div.i-three_columns {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+}
+
+div.i-three_columns i-card {
+    width: 250px;
+    height: 200px;
+}
