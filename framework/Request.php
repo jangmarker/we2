@@ -77,4 +77,52 @@ class Request {
         return $this->method;
     }
 
+    /**
+     * @param mixed $wrapper
+     */
+    public function setWrapper($wrapper)
+    {
+        $this->wrapper = $wrapper;
+    }
+
+    /**
+     * @param mixed $resourceName
+     */
+    public function setResourceName($resourceName)
+    {
+        $this->resourceName = $resourceName;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param mixed $subresourceName
+     */
+    public function setSubresourceName($subresourceName)
+    {
+        $this->subresourceName = $subresourceName;
+    }
+
+    /**
+     * @param mixed $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @param mixed $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
 }

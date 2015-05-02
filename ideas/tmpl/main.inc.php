@@ -8,10 +8,11 @@
             <i-bubble class="middle"><p>1500 in holidays</p></i-bubble>
             <i-bubble class="small"><p>200 in informatics</p></i-bubble>
             <i-bubble class="small"><p>200 in social work</p></i-bubble>
+            <i-bubble class="large"><p><a href="?resourceName=new_idea"><span class="fa fa-plus fa-2x"></span><br>Add yours...</a></p></i-bubble>
         </i-bubble-field>
     </i-card>
     <i-card id="main_about">
-        <a href="main.php?resourceName=about">
+        <a href="index.php?resourceName=about">
             <h2 is="i-card-h">About us & Contact</h2>
             We are a 1-person-team which develops software for a web engineering class.
         </a>

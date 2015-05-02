@@ -16,15 +16,17 @@
 <header>
     <div id="top">
         <div id="logo">
-            <span id="logo_icon" class="fa fa-lightbulb-o fa-2x"></span>
-            <span id="logo_text">Ideas</span>
+            <a href="index.php?resourceName=main">
+                <span id="logo_icon" class="fa fa-lightbulb-o fa-2x"></span>
+                <span id="logo_text">Ideas</span>
+            </a>
         </div>
         <div id="search">
             <input id="search_input" type="search" name="search" placeholder="Search..." />
             <span id="search_button" class="fa fa-search"></span>
         </div>
         <div id="account">
-            Account
+            <?= $data['user']['name'] ?>
         </div>
     </div>
     <div id="navigation">

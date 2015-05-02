@@ -10,6 +10,7 @@ class App {
 
     function registerMiddleware(Middleware $middleware) {
         $this->middlewares[] = $middleware;
+        $middleware->setApp($this);
     }
 
     function registerService($name, Service $service) {
@@ -18,6 +19,7 @@ class App {
         $this->registerHandle("POST", $name, '__default', 'defaultHandlePost');
         $this->registerHandle("UPDATE", $name, '__default', 'defaultHandleUpdate');
         $this->registerHandle("DELETE", $name, '__default', 'defaultHandleDelete');
+        $service->setApp($this);
     }
 
     function getService($name) {
@@ -65,7 +67,7 @@ class App {
         switch ($errorNo) {
             case 404:
                     $response->setTemplateName("404");
-                    $response->setData("Not found: " . $request->getResourceName());
+                    $response->setData(array('error' => "Not found: " . $request->getResourceName()));
                     $response->addHeader("Status", "404");
                 break;
             default:
@@ -79,6 +81,10 @@ class App {
         $headers = $response->getHeaders();
         for ($i = 0; $i < count($headers); ++$i) {
             header($headers[$i]);
+        }
+
+        foreach ($this->middlewares as $middleware) {
+            $response = $middleware->handleResponse($response);
         }
 
         $htmlTemplate = new HtmlTemplate($this->templateDir, $response->getTemplateName());
@@ -96,6 +102,17 @@ class App {
 
         $response->setTemplateName($resource);
         $response->setData($service->get($request->getId()));
+
+        return $response;
+    }
+
+    function defaultHandlePost(\framework\App $app, \framework\Request $request, $resource) {
+        $response = new \framework\Response();
+
+        $service = $app->getService($resource);
+
+        $response->setTemplateName($resource);
+        $response->setData($service->create($request->getContent()));
 
         return $response;
     }

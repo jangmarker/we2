@@ -5,6 +5,10 @@ use PDO;
 
 class Service {
     private $pdo;
+    /**
+     * @var \framework\App
+     */
+    private $app;
 
     function __construct() {
         $this->pdo = new PDO('', "", "", array(
@@ -21,12 +25,28 @@ class Service {
     }
 
     function get($data) {
-        return array(0=>"hallo");
+        return array('msg'=>"hallo");
     }
 
     function update($data) {
     }
 
     function delete($data) {
+    }
+
+    /**
+     * @return App
+     */
+    public function getApp()
+    {
+        return $this->app;
+    }
+
+    /**
+     * @param App $app
+     */
+    public function setApp($app)
+    {
+        $this->app = $app;
     }
 }

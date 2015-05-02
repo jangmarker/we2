@@ -10,8 +10,14 @@ class ContentParser {
     }
 
     private static function parserForMimeType($mimeType, $content) {
-        if ($mimeType == 'text/json') {
-            return new JSONContentParser($content);
+
+        switch ($mimeType) {
+            case 'text/json':
+                return new JSONContentParser($content);
+            case 'application/x-www-form-urlencoded':
+                return new PostContentParser($content);
+            default:
+                die("Fatal: Could not find content parser for $mimeType");
         }
     }
 
