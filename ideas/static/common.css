@@ -33,3 +33,7 @@ a {
     padding-right: 10%;
     background-color: #f3f3f3;
 }
+
+.error {
+    color: red;
+}

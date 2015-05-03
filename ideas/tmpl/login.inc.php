@@ -3,14 +3,15 @@
     <div id="content" class="i-full">
         <i-card>
             <h2 is="i-card-h">Login</h2>
-            <table>
+            <?php if (array_key_exists('error', $data)) { ?>
+                <p class="error">Error: <?= $data['error'] ?></p>
+            <?php } ?>
                 <form action="" method="post">
                  <p><label for="username">User name:</label> <input id="username" name="username" type="text"></p>
                  <p><label for="password">Password:</label> <input id="password" name="password" type="passsword"></p>
                     <input type="hidden" name="target" value="<?= $data['target'] ?>">
                  <input type="submit" value="Login">
                 </form>
-            </table>
         </i-card>
     </div>
 

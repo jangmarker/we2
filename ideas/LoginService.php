@@ -39,7 +39,13 @@ class LoginService extends \framework\Service {
             header('Location: ' . $target, 301);
         } else {
             $result['error'] = "Could not find user '" . $username . "' with the specified password.";
+            $result['target'] = $target;
         }
+        return $result;
+    }
+
+    function delete($data) {
+        $_SESSION['user'] = array();
     }
 
 }

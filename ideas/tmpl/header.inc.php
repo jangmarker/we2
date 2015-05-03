@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script type="text/javascript" src="static/card.js"></script>
     <script type="text/javascript" src="static/bubbles.js"></script>
+    <script type="text/javascript" src="static/common.js"></script>
     <title></title>
 </head>
 <body>
@@ -29,7 +30,12 @@
             </form>
         </div>
         <div id="account">
-            <?= $data['user']['name'] ?>
+            <?php if (is_array($data) && array_key_exists('user', $data)
+                        && is_array($data['user']) && array_key_exists('name', $data['user'])) { ?>
+                <?= $data['user']['name'] ?> <a href="javascript:logout()">(Logout)</a>
+            <?php } else { ?>
+                <a href="index.php?resourceName=login">Login</a>
+            <?php }?>
         </div>
     </div>
     <div id="navigation">
