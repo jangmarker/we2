@@ -10,8 +10,8 @@ class Service {
      */
     private $app;
 
-    function __construct() {
-        $this->pdo = new PDO('', "", "", array(
+    function __construct($config) {
+        $this->pdo = new PDO($config['db']['pdo_config'], $config['db']['user'], $config['db']['password'], array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ));
