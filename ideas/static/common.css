@@ -37,3 +37,7 @@ a {
 .error {
     color: red;
 }
+
+.okay {
+    font-weight: bold;
+}

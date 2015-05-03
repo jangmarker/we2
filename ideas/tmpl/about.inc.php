@@ -22,6 +22,10 @@
                     <textarea type="text" name="contact-message" id="contact-message"></textarea>
                 </p>
                 <input type="submit">
+
+                <?php if (array_key_exists('msg', $data)) { ?>
+                    <p class="okay"><?= $data['msg'] ?></p>
+                <?php }?>
             </form>
         </i-card>
     </div>
