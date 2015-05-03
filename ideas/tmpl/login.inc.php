@@ -5,6 +5,8 @@
             <h2 is="i-card-h">Login</h2>
             <?php if (array_key_exists('error', $data)) { ?>
                 <p class="error">Error: <?= $data['error'] ?></p>
+            <?php } else if (array_key_exists('msg', $data)) { ?>
+                <p class="okay"><?= $data['msg']?></p>
             <?php } ?>
                 <form action="" method="post">
                  <p><label for="username">User name:</label> <input id="username" name="username" type="text"></p>

@@ -25,6 +25,13 @@ class LoginService extends \framework\Service {
         } else {
             $result['target'] = "";
         }
+
+        if (!is_null($this->currentUserId())) {
+            $result['msg'] = "You are logged in as " . $this->currentUserId();
+        } else {
+            $result['msg'] = "Please enter your credentials to log in";
+        }
+
         return $result;
     }
 
@@ -32,7 +39,7 @@ class LoginService extends \framework\Service {
         $result = array();
         $username = $data['username'];
         $password = $data['password'];
-        $target = $data['target'];
+        $target = array_key_exists('target', $data)?$data['target']:'';
 
         if ($this->getApp()->getService('user')->exists($username, $password)) {
             $_SESSION['user'] = array('id' => $username);
@@ -44,8 +51,9 @@ class LoginService extends \framework\Service {
         return $result;
     }
 
-    function delete($data) {
-        $_SESSION['user'] = array();
+    function remove() {
+        session_destroy();
+        $_SESSION = null;
     }
 
 }
