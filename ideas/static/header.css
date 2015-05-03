@@ -62,15 +62,17 @@ input:focus {
     align-items: center;
 }
 
-#menu_button {
-    background-color: white;
-    height: 25px;
-    width: 80px;
-    border-radius: 3px;
-    text-align: center;
-    line-height: 30px;
+#actions_right {
+    margin-left: auto;
 }
 
-#action {
+#actions_left {
+    margin-right: auto;
+}
 
+.action {
+    padding: 1px 2px;
+    background-color: white;
+    border-radius: 3px;
+    text-align: center;
 }

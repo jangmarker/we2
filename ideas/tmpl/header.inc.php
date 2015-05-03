@@ -39,11 +39,11 @@
         </div>
     </div>
     <div id="navigation">
-        <div id="menu_button">
-            Menu
+        <div id="actions_left" >
+            <a class="action" href="index.php?resourceName=main">Main page</a>
         </div>
-        <div id="action">
-
+        <div id="actions_right">
+            <a class="action" href="index.php?resourceName=new_idea"><span class="fa fa-plus"></span> New Idea</a>
         </div>
     </div>
 </header>
