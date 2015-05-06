@@ -11,7 +11,10 @@ function request(method, url, callback, data, headers) {
             request.setRequestHeader(headerName, headers[headerName])
     }
 
-    request.send(JSON.stringify(data));
+    if (data == null)
+        request.send();
+    else
+        request.send(JSON.stringify(data));
 }
 
 
@@ -32,7 +35,7 @@ function vote(ideaId, voteAmount) {
         'POST',
         'index.php?resourceName=votes',
         function () {
-            //window.location.replace(window.location);
+            window.location.replace(window.location);
         },
         {'ideaId': ideaId, 'vote': voteAmount},
         {'Accept': 'text/json', 'Content-Type': 'text/json'}
