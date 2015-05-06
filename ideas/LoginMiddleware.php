@@ -12,7 +12,8 @@ class LoginMiddleware extends \framework\Middleware  {
 
         if (is_null($this->getApp()->getService("login")->currentUser())
             && $request->getResourceName() != 'main'
-            && $request->getResourceName() != 'login') {
+            && $request->getResourceName() != 'login'
+            && $request->getResourceName() != 'about') {
             $target = urlencode("index.php?resourceName=" . $request->getResourceName());
             header("Location: index.php?resourceName=login&target=" .  $target, 301);
             die();

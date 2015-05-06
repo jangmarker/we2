@@ -35,60 +35,95 @@ class App {
         $this->handles[$resourceName][$method][$subresourceName] = $function;
     }
 
-    function exec(Request $request) {
-        foreach ($this->middlewares as $middleware) {
-            switch ($request->getMethod()) {
-                case 'POST': $middleware->onPost($request); break;
-                case 'GET': $middleware->onGet($request); break;
-                case 'UPDATE': $middleware->onUpdate($request); break;
-                case 'DELETE': $middleware->onDelete($request); break;
-                default: throw new \ErrorException('Unkown method: ' . $request->getMethod());
-            }
-        }
-
+    function exec($server) {
         $response = null;
-        if (!array_key_exists($request->getResourceName(), $this->handles)) {
-            $response = $this->errorHandler(404, $request);
-        } else {
-            $function = $this->handles[$request->getResourceName()][$request->getMethod()][$request->getSubresourceName()];
 
-            if (is_string($function)) {
-                $response = $this->$function($this, $request, $request->getResourceName());
-            } else {
-                $response = $function($this, $request, $request->getResourceName());
+        try {
+            $requestFactory = new \framework\QueryRequestFactory();
+            $request = $requestFactory->createRequest($_SERVER);
+
+            foreach ($this->middlewares as $middleware) {
+                switch ($request->getMethod()) {
+                    case 'POST':
+                        $middleware->onPost($request);
+                        break;
+                    case 'GET':
+                        $middleware->onGet($request);
+                        break;
+                    case 'UPDATE':
+                        $middleware->onUpdate($request);
+                        break;
+                    case 'DELETE':
+                        $middleware->onDelete($request);
+                        break;
+                    default:
+                        throw new \ErrorException('Unkown method: ' . $request->getMethod());
+                }
             }
+
+            if (!array_key_exists($request->getResourceName(), $this->handles)) {
+                $response = $this->errorHandler(404, "Could not find " . $request->getResourceName());
+            } else {
+                $function = $this->handles[$request->getResourceName()][$request->getMethod()][$request->getSubresourceName()];
+
+                if (is_string($function)) {
+                    $response = $this->$function($this, $request, $request->getResourceName());
+                } else {
+                    $response = $function($this, $request, $request->getResourceName());
+                }
+            }
+
+            $response->setAcceptedMimeType($request->getAcceptedMimeType());
+        } catch (\Exception $e) {
+            $response = $this->handleException($e);
         }
 
         $this->render($response);
     }
 
-    function errorHandler($errorNo, $request) {
+    function errorHandler($errorNo, $msg) {
         $response = new \framework\Response();
         switch ($errorNo) {
             case 404:
                     $response->setTemplateName("404");
-                    $response->setData(array('error' => "Not found: " . $request->getResourceName()));
+                    $response->setData(array('error' => $msg));
                     $response->addHeader("Status", "404");
                 break;
             default:
+                $response->setTemplateName('error');
+                $response->setData(array('error' => $msg));
+                $response->addHeader("Status", $errorNo);
                 break;
         }
 
         return $response;
     }
 
+    private function handleException(\Exception $e) {
+        if ($e instanceof \InvalidArgumentException) {
+            return $this->errorHandler(400, $e->getMessage());
+        } else {
+            return $this->errorHandler(500, $e->getMessage());
+        }
+    }
+
     function render(Response $response) {
-        $headers = $response->getHeaders();
-        for ($i = 0; $i < count($headers); ++$i) {
-            header($headers[$i]);
-        }
+        try {
+            $headers = $response->getHeaders();
+            for ($i = 0; $i < count($headers); ++$i) {
+                header($headers[$i]);
+            }
 
-        foreach ($this->middlewares as $middleware) {
-            $response = $middleware->handleResponse($response);
-        }
+            foreach ($this->middlewares as $middleware) {
+                $response = $middleware->handleResponse($response);
+            }
 
-        $htmlTemplate = new HtmlTemplate($this->templateDir, $response->getTemplateName());
-        echo $htmlTemplate->process($response->getData());
+            $template = Template::create($response->getAccepted(), $this->templateDir, $response->getTemplateName());
+
+            echo $template->process($response->getData());
+        } catch(\Exception $e) {
+            $this->render($this->handleException($e));
+        }
     }
 
     function setTemplateDir($templateDir) {

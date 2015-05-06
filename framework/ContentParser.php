@@ -10,6 +10,7 @@ class ContentParser {
     }
 
     private static function parserForMimeType($mimeType, $content) {
+        $mimeType = preg_replace("/;.*/", "", $mimeType);
 
         switch ($mimeType) {
             case 'text/json':
@@ -17,7 +18,7 @@ class ContentParser {
             case 'application/x-www-form-urlencoded':
                 return new PostContentParser($content);
             default:
-                die("Fatal: Could not find content parser for $mimeType");
+                throw new \InvalidArgumentException("Fatal: Could not find content parser for $mimeType");
         }
     }
 

@@ -6,6 +6,7 @@ class Response {
     private $templateName;
     private $data;
     private $headers = array();
+    private $acceptedMimeType = "text/html";
 
     public function setTemplateName($templateName) {
         $this->templateName = $templateName;
@@ -29,6 +30,15 @@ class Response {
         } else {
             $this->headers[] = "$headerName: $value";
         }
+    }
+
+    public function setAcceptedMimeType($mimeType) {
+        $this->addHeader("Content-Type", $mimeType);
+        $this->acceptedMimeType = $mimeType;
+    }
+
+    public function getAccepted() {
+        return $this->acceptedMimeType;
     }
 
     /**

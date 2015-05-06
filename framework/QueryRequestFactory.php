@@ -24,6 +24,11 @@ class QueryRequestFactory {
         }
         $result['content'] = ContentParser::parse($contentType, $rawContent);
 
+        $result['acceptedMimeType'] = preg_replace("/,.*/", "", $server['HTTP_ACCEPT']);
+        if (empty($result['acceptedMimeType'])) {
+            $result['acceptedMimeType'] = 'text/html';
+        }
+
         return new Request($result);
     }
 

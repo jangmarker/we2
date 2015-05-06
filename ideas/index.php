@@ -6,6 +6,7 @@ require_once(__DIR__ . "/UserService.php");
 require_once(__DIR__ . "/IdeaService.php");
 require_once(__DIR__ . "/SearchService.php");
 require_once(__DIR__ . "/AboutService.php");
+require_once(__DIR__ . "/VotesService.php");
 require_once(__DIR__ . "/LoginMiddleware.php");
 
 require_once(__DIR__ . "/config.inc.php");
@@ -19,10 +20,8 @@ $app->registerService("login", new LoginService($config));
 $app->registerService("user", new UserService($config));
 $app->registerService("idea", new IdeaService($config));
 $app->registerService("search", new SearchService($config));
+$app->registerService("votes", new VotesService($config));
 
 $app->registerMiddleware(new LoginMiddleware());
 
-$requestFactory = new \framework\QueryRequestFactory();
-$request = $requestFactory->createRequest($_SERVER);
-
-$app->exec($request);
+$app->exec($_SERVER);

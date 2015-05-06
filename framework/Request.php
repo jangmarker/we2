@@ -9,6 +9,7 @@ class Request {
     private $subresourceName;
     private $content;
     private $method;
+    private $acceptedMimeType = "text/html";
 
     function __construct($array) {
         $this->useIfExists($array, 'wrapper');
@@ -17,6 +18,7 @@ class Request {
         $this->useIfExists($array, 'subresourceName', '__default');
         $this->content = $array['content'];
         $this->method = $array['method'];
+        $this->setAcceptedMimeType($array['acceptedMimeType']);
     }
 
     private function useIfExists($array, $key, $default = false) {
@@ -125,4 +127,12 @@ class Request {
         $this->method = $method;
     }
 
+
+    private function setAcceptedMimeType($mimeType) {
+        $this->acceptedMimeType = $mimeType;
+    }
+
+    public function getAcceptedMimeType() {
+        return $this->acceptedMimeType;
+    }
 }

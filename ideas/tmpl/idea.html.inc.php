@@ -7,8 +7,8 @@
             <?=$data['description']?>
             <div class="vote_buttons">
                 Vote:
-                <button name="vote_down" class="inlinebutton button_vote_down"><span class="fa fa-thumbs-down"/></button>
-                <button name="vote_up" class="inlinebutton button_vote_up"><span class="fa fa-thumbs-up" /></button>
+                <button name="vote_down" class="inlinebutton button_vote_down" onclick="vote(<?=$data['idea_id']?>, -1)"><span class="fa fa-thumbs-down"/></button>
+                <button name="vote_up" class="inlinebutton button_vote_up" onclick="vote(<?=$data['idea_id']?>, 1)"><span class="fa fa-thumbs-up" /></button>
             </div>
         </i-card>
         <i-card>

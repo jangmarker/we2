@@ -3,6 +3,9 @@
 class LoginService extends \framework\Service {
 
     function currentUser() {
+        if (!isset($_SESSION)) {
+            return null;
+        }
         if (array_key_exists('user', $_SESSION)) {
             return $this->getApp()->getService('user')->getUserAsArray($this->currentUserId());
         } else {
@@ -11,6 +14,9 @@ class LoginService extends \framework\Service {
     }
 
     function currentUserId() {
+        if (!isset($_SESSION)) {
+            return null;
+        }
         if (array_key_exists('user', $_SESSION)) {
             return $_SESSION['user']['id'];
         } else {
