@@ -5,14 +5,35 @@ class IdeaService extends \framework\Service {
     function get($id) {
         $result = null;
 
+        $username = $this->getApp()->getService('login')->currentUserId();
+
         $db = $this->db();
         $stm = $db->prepare(
-            "SELECT `idea_id`, `shorttitle`, `description`, `fullname` user_name, `faculty_name`
-             FROM ideas
+            "SELECT `idea_id`, `shorttitle`, `description`, `fullname` user_name, `faculty_name`,
+                    IFNULL(upVote, 0) as upVote,
+                    IFNULL(downVote, 0) as downVote,
+                    IFNULL(userHasVoted, FALSE) as userHasVoted
+             FROM ideas i
              JOIN users USING (username)
              JOIN faculties USING (faculty_id)
+             LEFT JOIN (SELECT COUNT(vote) as upVote, idea_id
+                   FROM votes
+                   WHERE idea_id = :id AND vote = 1
+                   GROUP BY vote
+                  ) uV USING (idea_id)
+             LEFT JOIN (SELECT COUNT(vote) as downVote, idea_id
+                   FROM votes
+                   WHERE idea_id = :id AND vote = -1
+                   GROUP BY vote
+                  ) dV USING (idea_id)
+             LEFT JOIN (SELECT TRUE as userHasVoted, idea_id
+                   FROM votes
+                   WHERE idea_id = :id AND username = :username
+                   GROUP BY vote
+                  ) uHasV USING (idea_id)
              WHERE idea_id = :id");
         $stm->bindValue(':id', $id);
+        $stm->bindValue(':username', $username);
         $stm->execute();
 
         $result = $stm->fetch(PDO::FETCH_ASSOC);

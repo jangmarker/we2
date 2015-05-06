@@ -1,14 +1,25 @@
 <?php include(__DIR__ . '/header.inc.php') ?>
 
 <div id="content" class="i-columns">
+    <?php
+        if (array_key_exists('error', $data)) {
+            var_dump($data['error']);
+            die();
+        }
+    ?>
     <div id="column_left">
         <i-card>
             <h2 is="i-card-h"><?=$data['idea_id']?>: <?=$data['shorttitle']?> </h2>
             <?=$data['description']?>
             <div class="vote_buttons">
-                Vote:
-                <button name="vote_down" class="inlinebutton button_vote_down" onclick="vote(<?=$data['idea_id']?>, -1)"><span class="fa fa-thumbs-down"/></button>
-                <button name="vote_up" class="inlinebutton button_vote_up" onclick="vote(<?=$data['idea_id']?>, 1)"><span class="fa fa-thumbs-up" /></button>
+                <?php if ($data['userHasVoted'] == true) { ?>
+                    <span class="fa fa-thumbs-up"/>: <?=$data['upVote']?>
+                    <span class="fa fa-thumbs-down"/>: <?=$data['downVote']?>
+                <?php } else { ?>
+                    Vote:
+                    <button name="vote_down" class="inlinebutton button_vote_down" onclick="vote(<?=$data['idea_id']?>, -1)"><span class="fa fa-thumbs-down"/></button>
+                    <button name="vote_up" class="inlinebutton button_vote_up" onclick="vote(<?=$data['idea_id']?>, 1)"><span class="fa fa-thumbs-up" /></button>
+                <?php } ?>
             </div>
         </i-card>
         <i-card>
