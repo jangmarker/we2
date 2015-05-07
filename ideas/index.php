@@ -7,6 +7,7 @@ require_once(__DIR__ . "/IdeaService.php");
 require_once(__DIR__ . "/SearchService.php");
 require_once(__DIR__ . "/AboutService.php");
 require_once(__DIR__ . "/VotesService.php");
+require_once(__DIR__ . "/CommentService.php");
 require_once(__DIR__ . "/LoginMiddleware.php");
 
 require_once(__DIR__ . "/config.inc.php");
@@ -21,6 +22,7 @@ $app->registerService("user", new UserService($config));
 $app->registerService("idea", new IdeaService($config));
 $app->registerService("search", new SearchService($config));
 $app->registerService("votes", new VotesService($config));
+$app->registerService("comment", new CommentService($config));
 
 $app->registerMiddleware(new LoginMiddleware());
 

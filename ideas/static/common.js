@@ -41,3 +41,15 @@ function vote(ideaId, voteAmount) {
         {'Accept': 'text/json', 'Content-Type': 'text/json'}
     );
 }
+
+function newcomment(ideaId, comment) {
+    request(
+        'POST',
+        'index.php?resourceName=comment',
+        function () {
+            window.location.replace(window.location);
+        },
+        {'ideaId': ideaId, 'comment': comment},
+        {'Accept': 'text/json', 'Content-Type': 'text/json'}
+    );
+}

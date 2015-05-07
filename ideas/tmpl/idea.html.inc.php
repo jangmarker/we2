@@ -34,10 +34,8 @@
                         </i-comment-meta>
                     </i-comment>
                 <?php } ?>
-            <button class="morebutton">More...</button>
-            <textarea placeholder="You can use #aspect and idea <nr>" class="newcomment">
-
-            </textarea>
+            <textarea placeholder="You can use #aspect and idea <nr>" class="newcomment" id="newcomment_area"></textarea>
+            <button onclick="newcomment(<?=$data['idea_id']?>, document.getElementById('newcomment_area').value)">Create</button>
         </i-card>
 
         <i-card>
