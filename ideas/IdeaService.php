@@ -3,6 +3,10 @@
 class IdeaService extends \framework\Service {
 
     function get($id) {
+        return $this->getWithAspect($id, null);
+    }
+
+    function getWithAspect($id, $aspectName) {
         $result = null;
 
         $username = $this->getApp()->getService('login')->currentUserId();
@@ -76,6 +80,8 @@ class IdeaService extends \framework\Service {
         $stm->execute();
         $result['aspects'] = $stm->fetchAll(PDO::FETCH_ASSOC);
 
+        $result['selectedAspect'] = $this->getSelectedAspect($id, $aspectName);
+
         return $result;
     }
 
@@ -99,6 +105,25 @@ class IdeaService extends \framework\Service {
         } else {
             return array('error' => $stm->errorInfo());
         }
+    }
+
+    private function getSelectedAspect($id, $aspectName) {
+        $result = array();
+
+        $result['name'] = $aspectName;
+
+        $stm = $this->db()->prepare("
+            SELECT aspectname, comment, username, date
+            FROM aspects
+            JOIN comments USING (commentid)
+            WHERE idea_id = :id AND aspectname = :aspectname
+        ");
+        $stm->bindValue(":id", $id);
+        $stm->bindValue(":aspectname", $aspectName);
+        $stm->execute();
+        $result['comments'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 
 }

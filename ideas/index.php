@@ -26,4 +26,18 @@ $app->registerService("comment", new CommentService($config));
 
 $app->registerMiddleware(new LoginMiddleware());
 
+$app->registerHandle('GET', 'idea', '__default',
+    function (\framework\App $app, \framework\Request $request, $resource) {
+        $response = new \framework\Response();
+
+        $service = $app->getService($resource);
+
+        $response->setTemplateName($resource);
+        $data = $service->getWithAspect($request->getId(), $request->getParam('aspect'));
+        $response->setData($data);
+
+        return $response;
+    }
+);
+
 $app->exec($_SERVER);

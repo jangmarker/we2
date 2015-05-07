@@ -39,24 +39,17 @@
         </i-card>
 
         <i-card>
-            <h2 is="i-card-h">Discussion about <a is="i-aspect-reference">#Hosting</a></h2>
-            <i-comment class="lastcomment">
-                <i-comment-content>
-                    <a is="i-aspect-reference" href="#Hosting">#Hosting</a> is a complicated problem, maybe <a is="i-idea-reference">idea 001</a> can help us?
-                </i-comment-content>
-                <i-comment-meta>
-                    by Jan Marker at 6pm on 2015-04-03
-                </i-comment-meta>
-            </i-comment>
-            <hr>
-            <i-comment class="lastcomment">
-                <i-comment-content>
-                    I don't think that <a is="i-idea-reference">idea 001</a> can be useful.
-                </i-comment-content>
-                <i-comment-meta>
-                    by Jan Marker at 6pm on 2015-04-04
-                </i-comment-meta>
-        </i-comment>
+            <h2 is="i-card-h">Discussion about <a is="i-aspect-reference"><?= $data['selectedAspect']['name'] ?></a></h2>
+            <?php foreach ($data['selectedAspect']['comments'] as $comment) { ?>
+                <i-comment>
+                    <i-comment-content>
+                        <?= $comment['comment'] ?>
+                    </i-comment-content>
+                    <i-comment-meta>
+                        by <?= $comment['username'] ?> at <?= $comment['date'] ?>
+                    </i-comment-meta>
+                </i-comment>
+            <?php } ?>
         </i-card>
     </div>
     <div id="column_right">

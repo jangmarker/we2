@@ -29,6 +29,8 @@ class QueryRequestFactory {
             $result['acceptedMimeType'] = 'text/html';
         }
 
+        $result['others'] = $_GET;
+
         return new Request($result);
     }
 

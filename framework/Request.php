@@ -10,6 +10,7 @@ class Request {
     private $content;
     private $method;
     private $acceptedMimeType = "text/html";
+    private $parameters;
 
     function __construct($array) {
         $this->useIfExists($array, 'wrapper');
@@ -19,6 +20,7 @@ class Request {
         $this->content = $array['content'];
         $this->method = $array['method'];
         $this->setAcceptedMimeType($array['acceptedMimeType']);
+        $this->setOtherParameters($array['others']);
     }
 
     private function useIfExists($array, $key, $default = false) {
@@ -134,5 +136,15 @@ class Request {
 
     public function getAcceptedMimeType() {
         return $this->acceptedMimeType;
+    }
+
+    public function getParam($paramName) {
+        if (array_key_exists($paramName, $this->parameters))
+            return $this->parameters[$paramName];
+        return null;
+    }
+
+    private function setOtherParameters($others) {
+        $this->parameters = $others;
     }
 }
