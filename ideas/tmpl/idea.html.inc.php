@@ -24,22 +24,16 @@
         </i-card>
         <i-card>
             <h2 is="i-card-h">Recent comments</h2>
-            <i-comment>
-                <i-comment-content>
-                    <a is="i-aspect-reference" href="#Hosting">#Hosting</a> is a complicated problem, maybe <a is="i-idea-reference">idea 001</a> can help us?
-                </i-comment-content>
-                <i-comment-meta>
-                    by Jan Marker at 6pm on 2015-04-03
-                </i-comment-meta>
-            </i-comment>
-            <i-comment class="lastcomment">
-                <i-comment-content>
-                    The answer to <a is="i-aspect-reference">#Life</a> is 42
-                </i-comment-content>
-                <i-comment-meta>
-                    by Jan Marker at 6pm on 2015-04-05
-                </i-comment-meta>
-            </i-comment>
+                <?php foreach ($data['comments'] as $comment) { ?>
+                    <i-comment>
+                        <i-comment-content>
+                            <?= $comment['comment'] ?>
+                        </i-comment-content>
+                        <i-comment-meta>
+                            by <?= $comment['username'] ?> at <?= $comment['date'] ?>
+                        </i-comment-meta>
+                    </i-comment>
+                <?php } ?>
             <button class="morebutton">More...</button>
             <textarea placeholder="You can use #aspect and idea <nr>" class="newcomment">
 
@@ -75,10 +69,9 @@
         </i-card>
         <i-card>
             <h2 is="i-card-h">Tags</h2>
-            <a is="i-tag">informatics</a>,
-            <a is="i-tag">computer</a>,
-            <a is="i-tag">linux</a>,
-            <a is="i-tag">operations</a>
+            <?php foreach ($data['tags'] as $aspect) { ?>
+                <a is="i-tag" href="index.php?resourceName=search&id=<?=urlencode($aspect['tagname'])?>"><?=$aspect['tagname']?></a>
+            <?php } ?>
         </i-card>
         <i-card>
             <h2 is="i-card-h">Related: <a is="i-idea-reference">idea 001</a></h2>
@@ -95,8 +88,9 @@
         </i-card>
         <i-card>
             <h2 is="i-card-h">Aspects</h2>
-            <a is="i-aspect-reference">#Hosting</a>,
-            <a is="i-aspect-reference">#Life</a>
+            <?php foreach ($data['aspects'] as $aspect) { ?>
+                <a is="i-aspect-reference" href="index.php?resourceName=search&id=<?=urlencode($aspect['aspectname'])?>"><?=$aspect['aspectname']?></a>
+            <?php } ?>
         </i-card>
     </div>
 </div>

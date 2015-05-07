@@ -46,6 +46,36 @@ class IdeaService extends \framework\Service {
             }
         }
 
+        $stm = $db->prepare("
+            SELECT comment, fullname AS username, date
+            FROM comments
+            JOIN users USING (username)
+            WHERE idea_id = :id
+            ORDER BY date DESC
+        ");
+        $stm->bindValue(":id", $id);
+        $stm->execute();
+        $result['comments'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $stm = $db->prepare("
+            SELECT tagname
+            FROM tags
+            WHERE idea_id = :id
+        ");
+        $stm->bindValue(":id", $id);
+        $stm->execute();
+        $result['tags'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        $stm = $db->prepare("
+            SELECT aspectname
+            FROM aspects
+            JOIN comments USING (commentid)
+            WHERE idea_id = :id
+        ");
+        $stm->bindValue(":id", $id);
+        $stm->execute();
+        $result['aspects'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
         return $result;
     }
 
