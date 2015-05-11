@@ -39,7 +39,20 @@
         </i-card>
 
         <i-card>
-            <h2 is="i-card-h">Discussion about <a is="i-aspect-reference"><?= $data['selectedAspect']['name'] ?></a></h2>
+            <h2 is="i-card-h">
+                <label for="aspectDiscussion">Discussion about</label>
+                    <a is="i-aspect-reference">
+                        <select id="aspectDiscussion" name="aspectDiscussion" size="1" onchange="changeAspectDiscussion(event)">
+                            <?php foreach ($data['aspects'] as $aspect) { ?>
+                                <option
+                                    value="index.php?resourceName=idea&id=<?=$data['idea_id']?>&aspect=<?=urlencode($aspect['aspectname'])?>"
+                                    <?=($data['selectedAspect']['name'] == $aspect['aspectname'])?'selected':''?>>
+                                    <?=$aspect['aspectname']?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </a>
+            </h2>
             <?php foreach ($data['selectedAspect']['comments'] as $comment) { ?>
                 <i-comment>
                     <i-comment-content>

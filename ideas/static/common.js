@@ -53,3 +53,8 @@ function newcomment(ideaId, comment) {
         {'Accept': 'text/json', 'Content-Type': 'text/json'}
     );
 }
+
+function changeAspectDiscussion(event) {
+    window.location.replace(event.target.value);
+
+}
