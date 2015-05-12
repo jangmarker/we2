@@ -18,7 +18,7 @@ class MainService extends \framework\Service {
         $result['tagCount'] = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         $stm = $db->prepare(
-            "SELECT COUNT(*) as ideaCount
+            "SELECT FLOOR(COUNT(*)/10)*10 as ideaCount
              FROM ideas
          ");
         $stm->execute();

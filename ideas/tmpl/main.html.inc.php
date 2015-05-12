@@ -2,7 +2,7 @@
 
 <div id="content" class="i-full">
     <i-card>
-        <h2 is="i-card-h">About <?=$data['ideaCount'] ?> ideas...</h2>
+        <h2 is="i-card-h">More than <?=$data['ideaCount'] ?> ideas...</h2>
         <i-bubble-field>
             <i-bubble class="large">
                 <p>
@@ -31,12 +31,6 @@
                 </p>
             </i-bubble>
         </i-bubble-field>
-    </i-card>
-    <i-card id="main_about">
-        <a href="index.php?resourceName=about">
-            <h2 is="i-card-h">About us & Contact</h2>
-            We are a 1-person-team which develops software for a web engineering class.
-        </a>
     </i-card>
 </div>
 
