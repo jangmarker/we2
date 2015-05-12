@@ -75,10 +75,15 @@ class IdeaService extends \framework\Service {
             FROM aspects
             JOIN comments USING (commentid)
             WHERE idea_id = :id
+            GROUP BY (aspectname)
         ");
         $stm->bindValue(":id", $id);
         $stm->execute();
         $result['aspects'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($aspectName)) {
+            $aspectName = $result['aspects'][0]['aspectname'];
+        }
 
         $result['selectedAspect'] = $this->getSelectedAspect($id, $aspectName);
 

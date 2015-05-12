@@ -74,7 +74,7 @@
             <?php foreach ($data['selectedAspect']['comments'] as $comment) { ?>
                 <i-comment>
                     <i-comment-content>
-                        <?= $comment['comment'] ?>
+                        <?= replaceAspectsAndIdeaReferences($comment['comment']) ?>
                     </i-comment-content>
                     <i-comment-meta>
                         by <?= $comment['username'] ?> at <?= $comment['date'] ?>
