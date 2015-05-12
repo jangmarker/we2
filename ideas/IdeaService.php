@@ -97,6 +97,14 @@ class IdeaService extends \framework\Service {
         $successful = $stm->execute();
         $id = $db->lastInsertId();
 
+        foreach(explode(',', $data['tags']) as $tagname) {
+            $tagname = trim($tagname);
+            $stm = $db->prepare("INSERT INTO tags(tagname, idea_id) VALUES(:tagname, :id)");
+            $stm->bindValue(':tagname', $tagname);
+            $stm->bindValue(':id', $id);
+            $stm->execute();
+        }
+
         $db->commit();
 
         if ($successful)  {
