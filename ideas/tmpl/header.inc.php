@@ -14,6 +14,7 @@
     <title></title>
 </head>
 <body>
+<div id="container">
 <header>
     <div id="top">
         <div id="logo">

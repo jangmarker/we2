@@ -1,6 +1,12 @@
 body {
     margin: 0;
+    height: 100%;
     background-color: #eeeeee;
+}
+
+html {
+    margin: 0;
+    height: 100%;
 }
 
 .inlinebutton {
@@ -32,6 +38,8 @@ a {
     padding-left: 10%;
     padding-right: 10%;
     background-color: #f3f3f3;
+
+    padding-bottom: 20px;
 }
 
 .error {
@@ -40,4 +48,23 @@ a {
 
 .okay {
     font-weight: bold;
+}
+
+footer {
+    background-color: #2FA22F;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+}
+
+#container {
+    min-height: 100%;
+    position: relative;
 }
