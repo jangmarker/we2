@@ -96,17 +96,16 @@
             <?php } ?>
         </i-card>
         <i-card>
-            <h2 is="i-card-h">Related: <a is="i-idea-reference">idea 001</a></h2>
-            Host cool things on cool servers
-            <hr>
-            <i-comment class="lastcomment">
-                <i-comment-content>
-                    <a is="i-aspect-reference" href="#Hosting">#Hosting</a> is a complicated problem, maybe <a is="i-idea-reference">idea 001</a> can help us?
-                </i-comment-content>
-                <i-comment-meta>
-                    by Jan Marker at 6pm on 2015-04-03
-                </i-comment-meta>
-            </i-comment>
+            <h2 is="i-card-h">Related: ideas</h2>
+            <?php if (count($data['relatedIdeas']) == 0) { ?>
+                No related ideas found.
+            <?php } else { ?>
+                <?php foreach ($data['relatedIdeas'] as $relatedIdea) { ?>
+                    <a is="i-idea-reference" href="index.php?resourceName=idea&id=<?=$relatedIdea['related_id']?>">
+                        <?= $relatedIdea['related_id']?>: <?= $relatedIdea['shorttitle']?>
+                    </a><br>
+                <?php } ?>
+            <?php } ?>
         </i-card>
         <i-card>
             <h2 is="i-card-h">Aspects</h2>

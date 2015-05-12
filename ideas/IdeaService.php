@@ -82,10 +82,13 @@ class IdeaService extends \framework\Service {
         $result['aspects'] = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         if (empty($aspectName)) {
-            $aspectName = $result['aspects'][0]['aspectname'];
+            if (count($result['aspects']) > 0)
+                $aspectName = $result['aspects'][0]['aspectname'];
         }
 
         $result['selectedAspect'] = $this->getSelectedAspect($id, $aspectName);
+
+        $result['relatedIdeas'] = $this->getRelatedIdeas($id);
 
         return $result;
     }
@@ -135,6 +138,24 @@ class IdeaService extends \framework\Service {
         $stm->bindValue(":aspectname", $aspectName);
         $stm->execute();
         $result['comments'] = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    private function getRelatedIdeas($id) {
+        $result = array();
+
+        $stm = $this->db()->prepare("
+            SELECT related_ideas.idea_id AS related_id, shorttitle
+            FROM related_ideas
+            JOIN comments USING (commentid)
+            JOIN ideas ON ideas.idea_id = related_ideas.idea_id
+            WHERE comments.idea_id = :id
+            GROUP BY related_id, shorttitle
+        ");
+        $stm->bindValue(":id", $id);
+        $stm->execute();
+        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }
