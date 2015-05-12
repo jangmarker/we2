@@ -2,13 +2,34 @@
 
 <div id="content" class="i-full">
     <i-card>
-        <h2 is="i-card-h">More than 10 000 ideas...</h2>
+        <h2 is="i-card-h">About <?=$data['ideaCount'] ?> ideas...</h2>
         <i-bubble-field>
-            <i-bubble class="large"><p>3000 in economics</p></i-bubble>
-            <i-bubble class="middle"><p>1500 in holidays</p></i-bubble>
-            <i-bubble class="small"><p>200 in informatics</p></i-bubble>
-            <i-bubble class="small"><p>200 in social work</p></i-bubble>
-            <i-bubble class="large"><p><a href="?resourceName=new_idea"><span class="fa fa-plus fa-2x"></span><br>Add yours...</a></p></i-bubble>
+            <i-bubble class="large">
+                <p>
+                    <a href="index.php?resourceName=search&id=<?=$data['tagCount'][0]['tagname']?>">
+                        <?=$data['tagCount'][0]['ideaCount']?> in <?=$data['tagCount'][0]['tagname']?>
+                    </a>
+                </p>
+            </i-bubble>
+            <i-bubble class="middle">
+                <p>
+                    <a href="index.php?resourceName=search&id=<?=$data['tagCount'][0]['tagname']?>">
+                      <?=$data['tagCount'][1]['ideaCount']?> in <?=$data['tagCount'][1]['tagname']?>
+                    </a>
+                </p>
+            </i-bubble>
+            <i-bubble class="small">
+                <p>
+                    <a href="index.php?resourceName=search&id=<?=$data['tagCount'][0]['tagname']?>">
+                       <?=$data['tagCount'][2]['ideaCount']?> in <?=$data['tagCount'][2]['tagname']?>
+                    </a>
+                </p>
+            </i-bubble>
+            <i-bubble class="middle">
+                <p>
+                    <a href="?resourceName=new_idea"><span class="fa fa-plus fa-2x"></span><br>Add yours...</a>
+                </p>
+            </i-bubble>
         </i-bubble-field>
     </i-card>
     <i-card id="main_about">

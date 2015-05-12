@@ -8,6 +8,7 @@ require_once(__DIR__ . "/SearchService.php");
 require_once(__DIR__ . "/AboutService.php");
 require_once(__DIR__ . "/VotesService.php");
 require_once(__DIR__ . "/CommentService.php");
+require_once(__DIR__ . "/MainService.php");
 require_once(__DIR__ . "/LoginMiddleware.php");
 
 require_once(__DIR__ . "/config.inc.php");
@@ -15,7 +16,7 @@ require_once(__DIR__ . "/config.inc.php");
 $app = new framework\App();
 $app->setTemplateDir(__DIR__ . "/tmpl/");
 $app->registerService("new_idea", new \framework\Service($config));
-$app->registerService("main", new \framework\Service($config));
+$app->registerService("main", new MainService($config));
 $app->registerService("about", new AboutService($config));
 $app->registerService("login", new LoginService($config));
 $app->registerService("user", new UserService($config));
