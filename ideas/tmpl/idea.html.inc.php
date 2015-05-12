@@ -1,5 +1,23 @@
 <?php include(__DIR__ . '/header.inc.php') ?>
 
+<?php
+
+    function replaceAspectsAndIdeaReferences($text) {
+        $result = replaceIdeaReferences(replaceAspectReferences($text));
+        return $result;
+    }
+
+    function replaceAspectReferences($text) {
+        return preg_replace("/#([a-zA-Z][a-zA-Z0-9]*)/", "<a is=\"i-aspect-reference\" href=\"index.php?resourceName=search&id=%23\\1\">\\0</a>", $text);
+
+    }
+
+    function replaceIdeaReferences($text) {
+        return preg_replace("/idea ([0-9]+)/", "<a is=\"i-idea-reference\" href=\"index.php?resourceName=idea&id=\\1\">\\0</a>", $text);
+    }
+
+?>
+
 <div id="content" class="i-columns">
     <?php
         if (array_key_exists('error', $data)) {
@@ -27,7 +45,7 @@
                 <?php foreach ($data['comments'] as $comment) { ?>
                     <i-comment>
                         <i-comment-content>
-                            <?= $comment['comment'] ?>
+                            <?= replaceAspectsAndIdeaReferences($comment['comment']) ?>
                         </i-comment-content>
                         <i-comment-meta>
                             by <?= $comment['username'] ?> at <?= $comment['date'] ?>
