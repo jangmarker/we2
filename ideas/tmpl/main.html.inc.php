@@ -13,14 +13,14 @@
             </i-bubble>
             <i-bubble class="middle">
                 <p>
-                    <a href="index.php?resourceName=search&id=<?=$data['tagCount'][0]['tagname']?>">
+                    <a href="index.php?resourceName=search&id=<?=$data['tagCount'][1]['tagname']?>">
                       <?=$data['tagCount'][1]['ideaCount']?> in <?=$data['tagCount'][1]['tagname']?>
                     </a>
                 </p>
             </i-bubble>
             <i-bubble class="small">
                 <p>
-                    <a href="index.php?resourceName=search&id=<?=$data['tagCount'][0]['tagname']?>">
+                    <a href="index.php?resourceName=search&id=<?=$data['tagCount'][2]['tagname']?>">
                        <?=$data['tagCount'][2]['ideaCount']?> in <?=$data['tagCount'][2]['tagname']?>
                     </a>
                 </p>

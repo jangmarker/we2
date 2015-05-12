@@ -19,12 +19,15 @@ class SearchService extends \framework\Service {
              LEFT JOIN comments USING (idea_id)
              LEFT JOIN aspects USING (commentid)
              LEFT JOIN tags USING (idea_id)
-             WHERE shorttitle LIKE :searchterm
-                OR description LIKE :searchterm
-                OR aspectname LIKE :searchterm
-                OR tagname LIKE :searchterm
+             WHERE shorttitle LIKE :searchterm0
+                OR description LIKE :searchterm1
+                OR aspectname LIKE :searchterm2
+                OR tagname LIKE :searchterm3
         ");
-        $stm->bindValue(':searchterm', '%'.$searchTerm.'%', PDO::PARAM_STR);
+        $stm->bindValue(':searchterm0', '%'.$searchTerm.'%', PDO::PARAM_STR);
+        $stm->bindValue(':searchterm1', '%'.$searchTerm.'%', PDO::PARAM_STR);
+        $stm->bindValue(':searchterm2', '%'.$searchTerm.'%', PDO::PARAM_STR);
+        $stm->bindValue(':searchterm3', '%'.$searchTerm.'%', PDO::PARAM_STR);
         $stm->execute();
 
 
