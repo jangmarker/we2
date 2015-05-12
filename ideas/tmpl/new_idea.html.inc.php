@@ -4,9 +4,9 @@
         <i-card>
             <h2 is="i-card-h">New Idea</h2>
             <form method="post" action="index.php?resourceName=idea">
-                <p><label for="shorttitle">Short title</label><br><input type="text" id="shortitle" name="shortitle"></p>
-                <p><label for="description">Description</label><br><textarea type="text" id="description" name="description"></textarea></p>
-                <p><label for="tags">Tags</label><br><input placeholder="tag1, tag2" type="text" id="tags" name="tags"></p>
+                <p><label for="shorttitle">Short title</label><br><input type="text" id="shortitle" name="shortitle" required></p>
+                <p><label for="description">Description</label><br><textarea type="text" id="description" name="description" required></textarea></p>
+                <p><label for="tags">Tags</label><br><input placeholder="tag1, tag2" type="text" id="tags" name="tags" required pattern="([a-zA-Z 0-9]+,)*[a-zA-Z 0-9]+"></p>
                 <input type="submit" value="Create">
             </form>
         </i-card>

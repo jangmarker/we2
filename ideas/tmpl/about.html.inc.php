@@ -15,11 +15,11 @@
             <form method="POST" action="">
                 <p>
                     <label for="contact-email">e-Mail</label><br>
-                    <input type="text" name="contact-email" id="contact-email">
+                    <input type="email" name="contact-email" id="contact-email" required>
                 </p>
                 <p>
                     <label for="contact-message">Message</label><br>
-                    <textarea type="text" name="contact-message" id="contact-message"></textarea>
+                    <textarea type="text" name="contact-message" id="contact-message" required></textarea>
                 </p>
                 <input type="submit">
 

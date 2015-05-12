@@ -10,7 +10,7 @@
             <?php } ?>
                 <form action="" method="post">
                  <p><label for="username">User name:</label> <input id="username" name="username" type="text"></p>
-                 <p><label for="password">Password:</label> <input id="password" name="password" type="passsword"></p>
+                 <p><label for="password">Password:</label> <input id="password" name="password" type="password"></p>
                     <input type="hidden" name="target" value="<?= $data['target'] ?>">
                  <input type="submit" value="Login">
                 </form>
